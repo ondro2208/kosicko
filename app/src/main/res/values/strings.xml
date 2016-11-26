@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">KoŠicko</string>
-    <string name="welcome">"Welcome to KoŠicko"</string>
+    <string name="app_name">KoSicko</string>
     <string name="weather">Check a Weather</string>
     <string name="news">"What's new?"</string>
     <string name="events">Where to go today?</string>
@@ -8,4 +7,5 @@
     <string name="beer">Grab a Beer</string>
     <string name="parking">Where do I park?</string>
     <string name="title_activity_beer">Map</string>
+    <string name="not_available">This service is currently not available</string>
 </resources>
