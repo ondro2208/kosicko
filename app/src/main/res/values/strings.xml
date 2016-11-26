@@ -7,4 +7,5 @@
     <string name="second_hand">Buy something used</string>
     <string name="beer">Grab a Beer</string>
     <string name="parking">Where do I park?</string>
+    <string name="title_activity_beer">Map</string>
 </resources>
