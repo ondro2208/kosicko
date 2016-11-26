@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 public class StartActivity extends AppCompatActivity {
 ////changes by matt
+    //changes by petos
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
