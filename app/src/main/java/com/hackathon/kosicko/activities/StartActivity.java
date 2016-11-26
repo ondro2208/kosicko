@@ -8,7 +8,7 @@ import com.hackathon.kosicko.R;
 
 
 public class StartActivity extends AppCompatActivity {
-
+//kk
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
