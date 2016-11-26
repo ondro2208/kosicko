@@ -28,8 +28,7 @@ public class StartActivity extends AppCompatActivity {
         beer_button = (RelativeLayout) findViewById(R.id.beer_button);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-//        Intent beer=new Intent(this,BeerActivity.class);
-//        startActivity(beer);
+
     }
 
     public void onWeatherClicked(View view){
