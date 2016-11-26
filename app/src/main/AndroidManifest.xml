@@ -40,7 +40,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAYuxHPQQMGy5UkgZGTS-5R-OyASRz16vI" />
+            android:value="AIzaSyCV3mff9_Bja2faeESSg-WKAqq7zXV8LT4" />
 
         <activity
             android:name=".activities.BeerActivity"
