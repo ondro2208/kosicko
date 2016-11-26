@@ -8,4 +8,5 @@
     <string name="parking">Where do I park?</string>
     <string name="title_activity_beer">Map</string>
     <string name="not_available">This service is currently not available</string>
+    <string name="title_activity_parking">Parking</string>
 </resources>

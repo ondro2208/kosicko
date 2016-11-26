@@ -1,8 +1,11 @@
 package com.hackathon.kosicko.activities;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -11,10 +14,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hackathon.kosicko.R;
+import com.hackathon.kosicko.clients.googlePlacesClient;
 
-public class BeerActivity extends FragmentActivity implements OnMapReadyCallback {
+public class BeerActivity extends FragmentActivity implements OnMapReadyCallback,OnConnectionFailedListener{
 //gf
     private GoogleMap mMap;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +29,9 @@ public class BeerActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-    }
+        googlePlacesClient googlePlacesClient=new googlePlacesClient();
+
+}
 
 
     /**
@@ -46,5 +53,10 @@ public class BeerActivity extends FragmentActivity implements OnMapReadyCallback
        // mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         CameraUpdate startLocation = CameraUpdateFactory.newLatLngZoom(sydney, 15);
         mMap.animateCamera(startLocation);
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 }

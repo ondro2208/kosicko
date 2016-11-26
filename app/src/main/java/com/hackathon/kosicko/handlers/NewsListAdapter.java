@@ -17,7 +17,7 @@ import org.json.JSONObject;
 /**
  * Created by petertelepcak on 26.11.2016.
  */
-/*
+
 public class NewsListAdapter extends ArrayAdapter {
         private static final String TAG = "JSONAdapter";
         private final JSONObject[] data;
@@ -51,6 +51,6 @@ public class NewsListAdapter extends ArrayAdapter {
             }
             return rowView;
         }
-    }*/
+    }
 
 }
