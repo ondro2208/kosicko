@@ -9,4 +9,10 @@
     <string name="title_activity_beer">Map</string>
     <string name="not_available">This service is currently not available</string>
     <string name="title_activity_parking">Parking</string>
+
+    <!-- Weather activity related strings -->
+
+    <string name="weather_provider">http://www.wunderground.com</string>
+    <string name="provider_api_url">http://api.wunderground.com/api/</string>
+    <string name="api_key">45da9f1d0b1c1ba5</string>
 </resources>
