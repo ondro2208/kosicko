@@ -2,26 +2,41 @@ package com.hackathon.kosicko.clients;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.ErrorDialogFragment;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.hackathon.kosicko.R;
+import com.hackathon.kosicko.activities.BeerActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * Created by Matt on 26.11.2016.
@@ -41,13 +56,14 @@ public class googlePlacesClient extends FragmentActivity  implements OnConnectio
 
     private static final int REQUEST_LOCATION = 1100;
 
+    private static final String PLACES_RADARSEARCH_URL =  "https://maps.googleapis.com/maps/api/place/radarsearch/json?";
+    private static final String APP_KEY = "&key=AIzaSyCV3mff9_Bja2faeESSg-WKAqq7zXV8LT4";
+    private static final String RADIUS = "&radius=5000";
+    private static final String TYPE_RESTAURANT = "&type=restaurant";
+    private static final String TYPE_PARKING = "&type=parking";
+    private static final String LOCATION_KE = "location=48.721614,21.257382";
 
-    /*private static final String[] REQUEST_LOCATION = {
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
-    }*/
-
-    private static final String PLACES_SEARCH_URL =  "https://maps.googleapis.com/maps/api/place/search/json?";
+    private static final String TAG_GET =  "PLACES";
 
 
     @Override
@@ -64,6 +80,37 @@ public class googlePlacesClient extends FragmentActivity  implements OnConnectio
     }
 
 
+    public void performSearch() throws Exception {
+        new RetrieveGETTask().execute();
+        /*try {
+            System.out.println("Perform Search ....");
+            System.out.println("-------------------");
+            HttpRequestFactory httpRequestFactory = createRequestFactory(transport);
+            HttpRequest request = httpRequestFactory.buildGetRequest(new GenericUrl(PLACES_SEARCH_URL));
+            request.url.put("key", API_KEY);
+            request.url.put("location", latitude + "," + longitude);
+            request.url.put("radius", 500);
+            request.url.put("sensor", "false");
+
+            if (PRINT_AS_STRING) {
+                System.out.println(request.execute().parseAsString());
+            } else {
+
+                PlacesList places = request.execute().parseAs(PlacesList.class);
+                System.out.println("STATUS = " + places.status);
+                for (Place place : places.results) {
+                    System.out.println(place);
+                }
+            }
+
+        } catch (HttpResponseException e) {
+            System.err.println(e.response.parseAsString());
+            throw e;
+        }*/
+
+    }
+
+
     private void getLastLocation(){
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -75,6 +122,21 @@ public class googlePlacesClient extends FragmentActivity  implements OnConnectio
             // permission has been granted, continue as usual
             Location myLocation =
                     LocationServices.FusedLocationApi.getLastLocation(placesClient);
+        }
+    }
+
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions,
+                                           int[] grantResults) {
+        if (requestCode == REQUEST_LOCATION) {
+            if(grantResults.length == 1
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // We can now safely use the API we requested access to
+                Location myLocation =
+                        LocationServices.FusedLocationApi.getLastLocation(placesClient);
+            } else {
+                // Permission was denied or request was cancelled
+            }
         }
     }
 
@@ -144,10 +206,93 @@ public class googlePlacesClient extends FragmentActivity  implements OnConnectio
         }
     }
 
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean(STATE_RESOLVING_ERROR, mResolvingError);
+    }
+
+    public class RetrieveGETTask extends AsyncTask<String, Void, JSONObject> {
+        private ProgressDialog progress;
+        private String errorMessage = "Connection error";
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+//            this.progress = new ProgressDialog(googlePlacesClient.this);
+//            this.progress.setMessage("Searching...");
+//            this.progress.show();
+        }
+        @Override
+        protected JSONObject doInBackground(String... cities) {
+//            try {
+//                StringBuilder fullBuilder = Helper.getMethod(GET_URL,null);
+//                fullBuilder = Helper.getMethod(GET_URL+"?page=2",fullBuilder);
+//                return new JSONObject(fullBuilder.toString());
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//            return null;
+            URL url = null;
+            try {
+                StringBuilder getURL = new StringBuilder(PLACES_RADARSEARCH_URL);
+                getURL.append(LOCATION_KE);
+                getURL.append(RADIUS);
+                getURL.append(TYPE_RESTAURANT);
+                getURL.append(APP_KEY);
+
+                //location=-33.8670522,151.1957362&radius=500&type=restaurant&key=AIzaSyCV3mff9_Bja2faeESSg-WKAqq7zXV8LT4
+                Log.i(TAG_GET,getURL.toString());
+                url = new URL(getURL.toString());
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setConnectTimeout(15000 /* milliseconds */);
+                connection.setReadTimeout(10000 /* milliseconds */);
+                connection.connect();
+                Log.i(TAG_GET, String.format("Connecting to %s", url.toString()));
+                Log.i(TAG_GET, String.format("HTTP Status Code: %d", connection.getResponseCode()));
+                StringBuilder sb = new StringBuilder();//getDataStringBuilder(connection);
+                BufferedReader br = new BufferedReader(new InputStreamReader( connection.getInputStream(),"utf-8"));
+                String line = null;
+                while ((line = br.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+                br.close();
+                Log.i(TAG_GET, sb.toString());
+                if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                    Log.i(TAG_GET, String.format("HTTP Status Code: %d", connection.getResponseCode()));
+                    return null;
+                }
+                connection.disconnect();
+
+                //if(fullBuilder==null){
+                   // return stringBuilder;
+               // }
+                //String newData = stringBuilder.toString();
+               // Log.i(TAG_GET, String.format("GET: %s", newData));
+                //newData = newData.substring(newData.indexOf("[")+1,newData.indexOf("]"));
+                //fullBuilder.insert(fullBuilder.indexOf("]"),","+newData);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+
+        }
+        @Override
+        protected void onPostExecute(JSONObject json) {
+            super.onPostExecute(json);
+            this.progress.dismiss();
+//            if (json == null) {
+//                Toast.makeText(getApplicationContext(), this.errorMessage, Toast.LENGTH_SHORT).show();
+//                return;
+          //  }
+            // change activity
+            Intent intent = new Intent(getApplicationContext(), BeerActivity.class);
+//            intent.putExtra("json", json.toString());
+//            intent.putExtra("durationF", durationF);
+//            intent.putExtra("distanceF", distanceF);
+            startActivity(intent);
+        }
     }
 }

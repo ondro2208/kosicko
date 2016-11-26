@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.hackathon.kosicko.R;
+import com.hackathon.kosicko.clients.googlePlacesClient;
 
 
 public class StartActivity extends AppCompatActivity {
@@ -61,10 +62,12 @@ public class StartActivity extends AppCompatActivity {
 //        startActivity(i);
     }
 
-    public void onBeerClicked(View view){
+    public void onBeerClicked(View view) throws Exception {
 //        Toast.makeText(this, getResources().getString(R.string.not_available), Toast.LENGTH_SHORT).show();
-        Intent i = new Intent(this, BeerActivity.class);
-        startActivity(i);
+        //Intent i = new Intent(this, BeerActivity.class);
+        //startActivity(i);
+        googlePlacesClient places = new googlePlacesClient();
+        places.performSearch();
     }
 
 }
