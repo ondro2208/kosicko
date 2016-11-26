@@ -39,7 +39,6 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void onNewsClicked(View view){
-//        Toast.makeText(this, getResources().getString(R.string.not_available), Toast.LENGTH_SHORT).show();
         Intent i = new Intent(this, NewsActivity.class);
         startActivity(i);
     }

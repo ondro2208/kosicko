@@ -23,6 +23,7 @@ package="com.hackathon.kosicko">
     <activity android:name=".activities.BeerActivity" android:label="@string/beer"></activity>
     <activity android:name="com.hackathon.kosicko.activities.ParkingActivity" android:label="@string/title_activity_parking"/>
     <activity android:name=".activities.WeatherActivity"></activity>
+    <activity android:name=".activities.NewsActivity"></activity>
 </application>
 
 </manifest>
