@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Kosicko</string>
+    <string name="welcome">Welcome to Kosicko</string>
+    <string name="weather">Check a Weather</string>
+    <string name="news">What's new?</string>
+    <string name="events">Where to go tonight?</string>
+    <string name="second_hand">Buy something used</string>
+    <string name="beer">Grab a Beer</string>
+    <string name="parking">Where do I park?</string>
 </resources>
