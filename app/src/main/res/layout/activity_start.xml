@@ -1,27 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/bg7"
+    >
 
-
-
-    <TextView
-        android:layout_marginTop="30sp"
+    <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/welcome"
-        android:textSize="30sp"
-        android:textColor="@color/colorAccent"
-        android:id="@+id/welcome"
-        />
+        android:layout_marginTop="10sp"
+        >
+
+        <TableRow>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/orb"
+                android:layout_marginLeft="20sp"
+                android:onClick="onOrbClicked"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textSize="45sp"
+                android:textColor="@color/sunflower"
+                android:id="@+id/welcome"
+                android:layout_marginTop="10sp"
+                />
+
+        </TableRow>
+
+    </TableLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:orientation="horizontal"
         android:layout_weight="1"
-        android:layout_marginTop="50sp"
+        android:layout_marginTop="20sp"
         >
 
         <RelativeLayout
@@ -29,9 +50,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/light_blue"
-            android:layout_marginLeft="20sp"
-            android:layout_marginRight="10sp"
+            android:layout_marginLeft="10sp"
+            android:layout_marginRight="5sp"
             android:layout_marginTop="10sp"
+            android:onClick="onWeatherClicked"
             >
 
             <ImageView
@@ -58,10 +80,12 @@
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/orange"
-            android:layout_marginLeft="10sp"
-            android:layout_marginRight="20sp"
-            android:layout_marginTop="10sp">
+            android:background="@color/alizarin"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="10sp"
+            android:layout_marginTop="10sp"
+            android:onClick="onNewsClicked"
+            >
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -95,9 +119,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/nephritis"
-            android:layout_marginLeft="20sp"
-            android:layout_marginRight="10sp"
+            android:layout_marginLeft="10sp"
+            android:layout_marginRight="5sp"
             android:layout_marginTop="10sp"
+            android:onClick="onEventsClicked"
             >
 
             <ImageView
@@ -125,9 +150,11 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/asphalt"
-            android:layout_marginLeft="10sp"
-            android:layout_marginRight="20sp"
-            android:layout_marginTop="10sp">
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="10sp"
+            android:layout_marginTop="10sp"
+            android:onClick="onParkingClicked"
+            >
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -156,16 +183,68 @@
         android:orientation="horizontal"
         android:layout_weight="1" >
 
-        <Button
+        <RelativeLayout
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            />
+            android:background="@color/wisteria"
+            android:layout_marginLeft="10sp"
+            android:layout_marginRight="5sp"
+            android:layout_marginTop="10sp"
+            android:onClick="onSecondHandClicked"
+            >
 
-        <Button
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/secondhand"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/secondhand_icon"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/secondhand_icon"
+                android:text="@string/second_hand"
+                android:layout_centerHorizontal="true"
+                android:textSize="18sp"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            />
+            android:background="@color/carrot"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="10sp"
+            android:layout_marginTop="10sp"
+            android:onClick="onBeerClicked"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/beer"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/beer_icon"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/beer_icon"
+                android:text="@string/beer"
+                android:layout_centerHorizontal="true"
+                android:textSize="18sp"
+                />
+
+        </RelativeLayout>
+
     </LinearLayout>
+
 </LinearLayout>
