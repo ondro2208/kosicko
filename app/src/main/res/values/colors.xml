@@ -3,4 +3,16 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="red">#ffff0000</color>
+    <color name="green">#ff00ff00</color>
+    <color name="orange">#FF4C26</color>
+    <color name="light_blue">#3498DB</color>
+    <color name="alizarin">#e74c3c</color>
+    <color name="wisteria">#8e44ad</color>
+    <color name="nephritis">#27ae60</color>
+    <color name="asphalt">#34495e</color>
+    <color name="sunflower">#f1c40f</color>
+    <color name="belize_hole">#2980b9</color>
+    <color name="carrot">#e67e22</color>
+
 </resources>
