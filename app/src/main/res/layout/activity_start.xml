@@ -1,49 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/bg7"
     >
 
-    <TableLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10sp"
         >
 
-        <TableRow>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/orb"
+            android:layout_marginLeft="20sp"
+            android:onClick="onOrbClicked"
+            android:id="@+id/orb"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="45sp"
+            android:textColor="@color/sunflower"
+            android:id="@+id/welcome"
+            android:layout_marginTop="10sp"
+            android:layout_toRightOf="@id/orb"
+            />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/orb"
-                android:layout_marginLeft="20sp"
-                android:onClick="onOrbClicked"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textSize="45sp"
-                android:textColor="@color/sunflower"
-                android:id="@+id/welcome"
-                android:layout_marginTop="10sp"
-                />
+    </RelativeLayout>
 
-        </TableRow>
-
-    </TableLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
+    <TableLayout
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_weight="1"
         android:layout_marginTop="20sp"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
         >
+
+        <TableRow>
 
         <RelativeLayout
             android:layout_width="0dip"
@@ -59,12 +68,11 @@
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:src="@drawable/weather"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/weather_icon"
-                />
+                android:layout_height="match_parent" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -108,7 +116,10 @@
                 />
 
         </RelativeLayout>
-    </LinearLayout>
+
+        </TableRow>
+
+    </TableLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -253,4 +264,7 @@
 
     </LinearLayout>
 
+</LinearLayout>
+
+</ScrollView>
 </LinearLayout>
