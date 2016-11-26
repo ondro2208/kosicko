@@ -29,6 +29,8 @@ public class NewsListAdapter extends ArrayAdapter {
         public NewsListAdapter(Context context, JSONObject[] data) {
             super(context, R.layout.news_parent, data);
             this.context = context;
+
+
             this.data = data;
         }
         @Override
