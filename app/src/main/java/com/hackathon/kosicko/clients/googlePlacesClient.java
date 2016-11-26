@@ -3,6 +3,7 @@ package com.hackathon.kosicko.clients;
 import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -13,22 +14,17 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.ErrorDialogFragment;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-import com.hackathon.kosicko.R;
 import com.hackathon.kosicko.activities.BeerActivity;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -42,8 +38,7 @@ import java.net.URL;
  * Created by Matt on 26.11.2016.
  */
 
-public class googlePlacesClient extends FragmentActivity  implements OnConnectionFailedListener {
-
+public class GooglePlacesClient extends AppCompatActivity  implements OnConnectionFailedListener {
     private GoogleApiClient placesClient;
     // Request code to use when launching the resolution activity
     private static final int REQUEST_RESOLVE_ERROR = 1001;
@@ -54,10 +49,11 @@ public class googlePlacesClient extends FragmentActivity  implements OnConnectio
     // Bool to track whether the app is already resolving an error
     private boolean mResolvingError = false;
 
+
     private static final int REQUEST_LOCATION = 1100;
 
     private static final String PLACES_RADARSEARCH_URL =  "https://maps.googleapis.com/maps/api/place/radarsearch/json?";
-    private static final String APP_KEY = "&key=AIzaSyCV3mff9_Bja2faeESSg-WKAqq7zXV8LT4";
+    private static final String APP_KEY = "&key=AIzaSyAMqmKzz65ak2oP7EiztXIoL7brIYtE7lU";
     private static final String RADIUS = "&radius=5000";
     private static final String TYPE_RESTAURANT = "&type=restaurant";
     private static final String TYPE_PARKING = "&type=parking";
@@ -81,7 +77,7 @@ public class googlePlacesClient extends FragmentActivity  implements OnConnectio
 
 
     public void performSearch() throws Exception {
-        new RetrieveGETTask().execute();
+        new RetrieveGETTask(getApplicationContext()).execute();
         /*try {
             System.out.println("Perform Search ....");
             System.out.println("-------------------");
@@ -188,7 +184,7 @@ public class googlePlacesClient extends FragmentActivity  implements OnConnectio
 
         @Override
         public void onDismiss(DialogInterface dialog) {
-            ((googlePlacesClient) getActivity()).onDialogDismissed();
+            ((GooglePlacesClient) getActivity()).onDialogDismissed();
         }
     }
 
@@ -213,13 +209,19 @@ public class googlePlacesClient extends FragmentActivity  implements OnConnectio
     }
 
     public class RetrieveGETTask extends AsyncTask<String, Void, JSONObject> {
+        private Context context;
+
         private ProgressDialog progress;
         private String errorMessage = "Connection error";
+
+        public RetrieveGETTask(Context context) {
+           this.context=context.getApplicationContext();
+        }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-//            this.progress = new ProgressDialog(googlePlacesClient.this);
+//            this.progress = new ProgressDialog(GooglePlacesClient.this);
 //            this.progress.setMessage("Searching...");
 //            this.progress.show();
         }
@@ -282,13 +284,14 @@ public class googlePlacesClient extends FragmentActivity  implements OnConnectio
         @Override
         protected void onPostExecute(JSONObject json) {
             super.onPostExecute(json);
-            this.progress.dismiss();
+         //   this.progress.dismiss();
 //            if (json == null) {
 //                Toast.makeText(getApplicationContext(), this.errorMessage, Toast.LENGTH_SHORT).show();
 //                return;
           //  }
             // change activity
-            Intent intent = new Intent(getApplicationContext(), BeerActivity.class);
+            Intent intent = new Intent();
+            intent.setClass(getApplicationContext(),BeerActivity.class);
 //            intent.putExtra("json", json.toString());
 //            intent.putExtra("durationF", durationF);
 //            intent.putExtra("distanceF", distanceF);

@@ -8,7 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.hackathon.kosicko.R;
-import com.hackathon.kosicko.clients.googlePlacesClient;
+import com.hackathon.kosicko.clients.GooglePlacesClient;
 
 
 public class StartActivity extends AppCompatActivity {
@@ -65,7 +65,7 @@ public class StartActivity extends AppCompatActivity {
 //        Toast.makeText(this, getResources().getString(R.string.not_available), Toast.LENGTH_SHORT).show();
         //Intent i = new Intent(this, BeerActivity.class);
         //startActivity(i);
-        googlePlacesClient places = new googlePlacesClient();
+        GooglePlacesClient places = new GooglePlacesClient();
         places.performSearch();
     }
 

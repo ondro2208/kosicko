@@ -14,7 +14,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hackathon.kosicko.R;
-import com.hackathon.kosicko.clients.googlePlacesClient;
+import com.hackathon.kosicko.clients.GooglePlacesClient;
 
 public class BeerActivity extends FragmentActivity implements OnMapReadyCallback,OnConnectionFailedListener{
 //gf
@@ -29,7 +29,7 @@ public class BeerActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        googlePlacesClient googlePlacesClient=new googlePlacesClient();
+        GooglePlacesClient googlePlacesClient=new GooglePlacesClient();
 
 }
 
