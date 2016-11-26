@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.ParkingActivity"></activity>
+        <activity android:name=".activities.ParkingActivity" />
+        <activity android:name=".activities.NewsActivity"></activity>
     </application>
 
 </manifest>
