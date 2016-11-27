@@ -3,6 +3,7 @@ package com.hackathon.kosicko.activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,14 +37,18 @@ public class NewsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_news);
 
 
-        putFakeDataToListView();
-
-        String url = "https://slack-redir.net/link?url=http%3A%2F%2Fs.sme.sk%2Fr-rss%2F20392432%2Fkosice.korzar.sme.sk%2Ftana-pauhofova-zakladom-uspechu-je-neporovnavat.html&v=3";
-        openPage(url);
 
 
-        //RetrieveNewsTask task = new RetrieveNewsTask();
-        //task.execute(null, null, null, null);              //zatial null
+        //putFakeDataToListView();
+
+        //String url = "https://slack-redir.net/link?url=http%3A%2F%2Fs.sme.sk%2Fr-rss%2F20392432%2Fkosice.korzar.sme.sk%2Ftana-pauhofova-zakladom-uspechu-je-neporovnavat.html&v=3";
+        //openPage(url);
+
+
+
+
+        RetrieveNewsTask task = new RetrieveNewsTask();
+        task.execute(null, null, null, null);    //zatial null
     }
 
     private void openPage(String URL) {
@@ -95,13 +100,13 @@ public class NewsActivity extends AppCompatActivity {
     }
 
 
-/*
+
     // New class to get data from database
 
     public class RetrieveNewsTask extends AsyncTask<String, Void, String> {
 
         private static final String APPID = "OKppgL69MFQfC3mWYxrgKTGCjotMd9T6c9Vc7cV0";
-        private static final String WEATHER_URL = "https://parseapi.back4app.com";
+        private static final String WEATHER_URL = "https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Frss.sme.sk%2Frss%2Frss.asp%3Fsek%3Dreg_ke";
         private static final String TAG = "RetrieveNewsTask";
         private ProgressDialog progress;
 
@@ -113,13 +118,13 @@ public class NewsActivity extends AppCompatActivity {
 
             this.progress = new ProgressDialog(NewsActivity.this);
             this.progress.setMessage("Downloading...");
-            this.progress.show();
+            //this.progress.show();
         }
 
         @Override
         protected String doInBackground(String... cities) {
             try {
-                URL url = new URL(String.format(WEATHER_URL, cities[0], APPID));
+                URL url = new URL("https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Frss.sme.sk%2Frss%2Frss.asp%3Fsek%3Dreg_ke");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
 
@@ -138,6 +143,10 @@ public class NewsActivity extends AppCompatActivity {
                     stringBuilder.append(line + '\n');
                 }
 
+                String data = stringBuilder.toString();
+
+                parseStringDataToJson(data);
+
                 Log.i(TAG, String.format("GET: %s", stringBuilder.toString()));
 
                 return stringBuilder.toString();
@@ -148,6 +157,10 @@ public class NewsActivity extends AppCompatActivity {
             }
 
             return null;
+        }
+
+        private void parseStringDataToJson(String data) {
+            
         }
 
         @Override
@@ -162,13 +175,12 @@ public class NewsActivity extends AppCompatActivity {
             }
 
             // change activity
-            Intent intent = new Intent(getApplicationContext(), NewsActivity.class);
-            intent.putExtra("data", data);
-            startActivity(intent);
+            //Intent intent = new Intent(getApplicationContext(), NewsActivity.class);
+            //intent.putExtra("data", data);
+            //startActivity(intent);
         }
 
     }
 
-*/
 
 }
