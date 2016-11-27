@@ -24,7 +24,7 @@ package="com.hackathon.kosicko">
     <activity android:name=".clients.GooglePlacesClient"></activity>
     <activity android:name="com.hackathon.kosicko.activities.ParkingActivity" android:label="@string/title_activity_parking"/>
     <activity android:name=".activities.NewsActivity"></activity>
-    <activity android:name=".activities.WeatherActivity"></activity>
+    <activity android:name=".activities.WeatherActivity" android:screenOrientation="portrait"></activity>
 </application>
 
 </manifest>
