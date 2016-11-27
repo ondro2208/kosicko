@@ -63,10 +63,8 @@ public class StartActivity extends AppCompatActivity {
 
     public void onBeerClicked(View view) throws Exception {
 //        Toast.makeText(this, getResources().getString(R.string.not_available), Toast.LENGTH_SHORT).show();
-        //Intent i = new Intent(this, BeerActivity.class);
-        //startActivity(i);
-        GooglePlacesClient places = new GooglePlacesClient();
-        places.performSearch();
+        Intent i = new Intent(this, GooglePlacesClient.class);
+        startActivity(i);
     }
 
 }

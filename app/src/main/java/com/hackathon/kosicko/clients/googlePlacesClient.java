@@ -16,6 +16,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -23,6 +24,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.hackathon.kosicko.R;
 import com.hackathon.kosicko.activities.BeerActivity;
 
 import org.json.JSONObject;
@@ -64,6 +66,8 @@ public class GooglePlacesClient extends AppCompatActivity  implements OnConnecti
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.places_client);
         placesClient = new GoogleApiClient
                 .Builder(this)
                 .addApi(Places.GEO_DATA_API)
@@ -73,11 +77,16 @@ public class GooglePlacesClient extends AppCompatActivity  implements OnConnecti
 
         mResolvingError = savedInstanceState != null
                 && savedInstanceState.getBoolean(STATE_RESOLVING_ERROR, false);
+        try {
+            performSearch();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
     public void performSearch() throws Exception {
-        new RetrieveGETTask(getApplicationContext()).execute();
+        new RetrieveGETTask().execute();
         /*try {
             System.out.println("Perform Search ....");
             System.out.println("-------------------");
@@ -209,21 +218,18 @@ public class GooglePlacesClient extends AppCompatActivity  implements OnConnecti
     }
 
     public class RetrieveGETTask extends AsyncTask<String, Void, JSONObject> {
-        private Context context;
+
 
         private ProgressDialog progress;
         private String errorMessage = "Connection error";
 
-        public RetrieveGETTask(Context context) {
-           this.context=context.getApplicationContext();
-        }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-//            this.progress = new ProgressDialog(GooglePlacesClient.this);
-//            this.progress.setMessage("Searching...");
-//            this.progress.show();
+            this.progress = new ProgressDialog(GooglePlacesClient.this);
+            this.progress.setMessage("Searching...");
+            this.progress.show();
         }
         @Override
         protected JSONObject doInBackground(String... cities) {
@@ -284,18 +290,19 @@ public class GooglePlacesClient extends AppCompatActivity  implements OnConnecti
         @Override
         protected void onPostExecute(JSONObject json) {
             super.onPostExecute(json);
-         //   this.progress.dismiss();
+            this.progress.dismiss();
 //            if (json == null) {
 //                Toast.makeText(getApplicationContext(), this.errorMessage, Toast.LENGTH_SHORT).show();
 //                return;
-          //  }
+//            }
             // change activity
-            Intent intent = new Intent();
-            intent.setClass(getApplicationContext(),BeerActivity.class);
+                Intent intent = new Intent(getApplicationContext(),BeerActivity.class);
 //            intent.putExtra("json", json.toString());
 //            intent.putExtra("durationF", durationF);
 //            intent.putExtra("distanceF", distanceF);
-            startActivity(intent);
+                startActivity(intent);
+
+
         }
     }
 }
