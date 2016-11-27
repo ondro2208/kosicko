@@ -25,17 +25,10 @@ import com.google.android.gms.location.places.Places;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.hackathon.kosicko.activities.BeerActivity;
 import com.hackathon.kosicko.R;
-import com.hackathon.kosicko.classes.PlacesHelper;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 /**
  * Created by Matt on 26.11.2016.
@@ -57,7 +50,7 @@ public class GooglePlacesClient extends AppCompatActivity  implements OnConnecti
 
     private static final String PLACES_RADARSEARCH_URL =  "https://maps.googleapis.com/maps/api/place/radarsearch/json?";
     private static final String APP_KEY = "&key=AIzaSyAMqmKzz65ak2oP7EiztXIoL7brIYtE7lU";
-    private static final String RADIUS = "&radius=5000";
+    private static final String RADIUS = "&radius=500";
     private static final String TYPE_RESTAURANT = "&type=restaurant";
     private static final String TYPE_PARKING = "&type=parking";
     private static final String LOCATION_KE = "location=48.721614,21.257382";
@@ -226,7 +219,32 @@ public class GooglePlacesClient extends AppCompatActivity  implements OnConnecti
         protected void onPostExecute(JSONObject json) {
             super.onPostExecute(json);
             Intent intent = new Intent(getApplicationContext(), BeerActivity.class);
+           // intent.putExtra("json",json);
             startActivity(intent);
         }
     }
+
+//    public void jsonToClass(JSONObject jsonObject){
+//        String jsonString = "PlacePoint";
+//        JSONObject jsonResult = null;
+//        try {
+//            jsonResult = new JSONObject(jsonString);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        JSONArray data = null;
+//        try {
+//            data = jsonResult.getJSONArray("data");
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        if(data != null) {
+//            String[] names = new String[data.length()];
+//            String[] birthdays = new String[data.length()];
+//            for(int i = 0 ; i < data.length() ; i++) {
+//                birthdays[i] = data.getString("birthday");
+//                names[i] = data.getString("name");
+//            }
+//        }
+//    }
 }

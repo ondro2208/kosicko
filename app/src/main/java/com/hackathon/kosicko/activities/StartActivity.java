@@ -11,7 +11,6 @@ import android.widget.Toast;
 import com.hackathon.kosicko.R;
 import com.hackathon.kosicko.classes.RSSParser.Feed;
 import com.hackathon.kosicko.classes.RSSParser.FeedMessage;
-import com.hackathon.kosicko.classes.RSSParser.RSSFeedParser;
 import com.hackathon.kosicko.clients.GooglePlacesClient;
 
 
@@ -70,21 +69,21 @@ public class StartActivity extends AppCompatActivity {
     public void onBeerClicked(View view) throws Exception {
 //        Toast.makeText(this, getResources().getString(R.string.not_available), Toast.LENGTH_SHORT).show();
         Intent i = new Intent(this, GooglePlacesClient.class);
-        i.putExtra("toActivity","beer");
+      //  i.putExtra("toActivity","beer");
         startActivity(i);
     }
 
-    private void createRSSFeed(){
-        RSSFeedParser parser = new RSSFeedParser(
-                "http://rss.sme.sk/rss/rss.asp?sek=reg_ke");
-        Feed feed = parser.readFeed();
-        System.out.println(feed);
-        for (FeedMessage message : feed.getMessages()) {
-
-            //your code here
-
-        }
-    }
+//    private void createRSSFeed(){
+//        RSSFeedParser parser = new RSSFeedParser(
+//                "http://rss.sme.sk/rss/rss.asp?sek=reg_ke");
+//        Feed feed = parser.readFeed();
+//        System.out.println(feed);
+//        for (FeedMessage message : feed.getMessages()) {
+//
+//            //your code here
+//
+//        }
+//    }
 
 
 

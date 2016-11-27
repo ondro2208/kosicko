@@ -1,4 +1,4 @@
-package com.hackathon.kosicko.classes;
+package com.hackathon.kosicko.clients;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -40,6 +40,7 @@ public class PlacesHelper {
 
         }
         URL url = null;
+        Log.d("PlacesHelper", "URL: " + getURL.toString());
         try {
             url = new URL(getURL.toString());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();

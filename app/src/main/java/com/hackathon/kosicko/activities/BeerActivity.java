@@ -1,5 +1,6 @@
 package com.hackathon.kosicko.activities;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -57,6 +58,14 @@ public class BeerActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+    @Override
+    public void onBackPressed(){
+        Intent back=new Intent(getApplicationContext(),StartActivity.class);
+        startActivity(back);
+        finish();
+
 
     }
 }
