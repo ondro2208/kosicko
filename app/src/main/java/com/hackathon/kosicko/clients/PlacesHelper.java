@@ -1,13 +1,17 @@
 package com.hackathon.kosicko.clients;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.google.android.gms.common.internal.DowngradeableSafeParcel;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hackathon.kosicko.R;
+import com.hackathon.kosicko.handlers.Beer;
+import com.hackathon.kosicko.handlers.BeerDBHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,6 +23,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * Created by otara on 26.11.2016.
@@ -122,7 +127,8 @@ public class PlacesHelper {
         return null;
     }
 
-    public static void addMarkersToMap(JSONObject[] jsonObjects, GoogleMap googleMap, String toActivity){
+    public static void addMarkersToMap(JSONObject[] jsonObjects, GoogleMap googleMap, String toActivity, ArrayList<Beer> beerEvents){
+
         for(JSONObject object : jsonObjects){
             double lat = 0;
             double lon = 0;
@@ -138,7 +144,17 @@ public class PlacesHelper {
             LatLng position = new LatLng(lat,lon);
             MarkerOptions startMarker = null;
             if("beer".equals(toActivity)){
-                startMarker = new MarkerOptions().position(position).title(name).icon(BitmapDescriptorFactory.fromResource(R.drawable.beer));
+                startMarker = new MarkerOptions();
+                startMarker.position(position).title(name).icon(BitmapDescriptorFactory.fromResource(R.drawable.establishment));
+                if(beerEvents!=null){
+                    for(Beer beer: beerEvents){
+                        if(Double.valueOf(beer.getLat())==lat && Double.valueOf(beer.getLng())==lon){
+                            startMarker.position(position).title(name).snippet(String.valueOf(beer.getPeople())).icon(BitmapDescriptorFactory.fromResource(R.drawable.beer_marker));
+                        }
+                }
+
+
+                }
             }
             if("parking".equals(toActivity)) {
                 startMarker = new MarkerOptions().position(position).title(name).icon(BitmapDescriptorFactory.fromResource(R.drawable.parking_map));

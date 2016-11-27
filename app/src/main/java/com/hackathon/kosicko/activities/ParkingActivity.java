@@ -54,7 +54,7 @@ public class ParkingActivity extends FragmentActivity implements OnConnectionFai
         // Add a marker in Sydney and move the camera
         LatLng kosice = new LatLng(48.721614, 21.257382);
         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        PlacesHelper.addMarkersToMap(jsonObjects,mMap,toActivity);
+        PlacesHelper.addMarkersToMap(jsonObjects,mMap,toActivity,null);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(kosice));
     }
 

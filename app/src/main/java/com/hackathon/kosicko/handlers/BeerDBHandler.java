@@ -79,7 +79,7 @@ public class BeerDBHandler extends SQLiteOpenHelper {
     }
 
 
-    Cursor getData(SQLiteDatabase db) {
+    public Cursor getData(SQLiteDatabase db) {
 
         String[] data = {KEY_LAT, KEY_LNG, KEY_PEOPLE};
 
@@ -88,7 +88,7 @@ public class BeerDBHandler extends SQLiteOpenHelper {
         return cursor;
     }
 
-    ArrayList<Beer> getAllBeers(SQLiteDatabase db) {
+    public ArrayList<Beer> getAllBeers(SQLiteDatabase db) {
 
         String[] data = {KEY_LAT, KEY_LNG, KEY_PEOPLE};
 
