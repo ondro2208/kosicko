@@ -9,6 +9,9 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.hackathon.kosicko.R;
+import com.hackathon.kosicko.classes.RSSParser.Feed;
+import com.hackathon.kosicko.classes.RSSParser.FeedMessage;
+import com.hackathon.kosicko.classes.RSSParser.RSSFeedParser;
 import com.hackathon.kosicko.clients.GooglePlacesClient;
 
 
@@ -71,7 +74,17 @@ public class StartActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    private void createRSSFeed(){
+        RSSFeedParser parser = new RSSFeedParser(
+                "http://rss.sme.sk/rss/rss.asp?sek=reg_ke");
+        Feed feed = parser.readFeed();
+        System.out.println(feed);
+        for (FeedMessage message : feed.getMessages()) {
 
+            //your code here
+
+        }
+    }
 
 
 
