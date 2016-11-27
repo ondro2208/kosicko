@@ -17,6 +17,7 @@ import com.google.gson.JsonArray;
 import com.hackathon.kosicko.R;
 import com.hackathon.kosicko.handlers.NewsListAdapter;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -110,6 +111,8 @@ public class NewsActivity extends AppCompatActivity {
         private static final String TAG = "RetrieveNewsTask";
         private ProgressDialog progress;
 
+        private JSONObject[] finalObject;
+
 
 
         @Override
@@ -154,13 +157,31 @@ public class NewsActivity extends AppCompatActivity {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
+            } catch (JSONException exc){
+                exc.printStackTrace();
             }
 
             return null;
         }
 
-        private void parseStringDataToJson(String data) {
-            
+        private void parseStringDataToJson(String data) throws JSONException {
+
+            JSONObject jsonObj = new JSONObject(data);
+
+            JSONArray arr = new JSONArray(jsonObj.getString("items"));
+
+            this.finalObject = new JSONObject[arr.length()];
+
+            for(int i = 0; i < arr.length(); i++){
+                JSONObject js = new JSONObject();
+                js.put("TITLE", arr.getJSONObject(i).getString("title"));
+                js.put("DATE", arr.getJSONObject(i).getString("pubDate"));
+                js.put("PICTURE", arr.getJSONObject(i).getJSONObject("enclosure").getString("link"));
+                Log.i("HHHHHHHHH", ""+ arr.getJSONObject(i).getJSONObject("enclosure").getString("link"));
+                this.finalObject[i] = js;
+
+            }
+
         }
 
         @Override
@@ -173,6 +194,12 @@ public class NewsActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Connection error", Toast.LENGTH_SHORT).show();
                 return;
             }
+
+            NewsListAdapter adapter = new NewsListAdapter(NewsActivity.super.getApplicationContext(), this.finalObject);
+
+            ListView lv = (ListView) findViewById(R.id.news_list_view);
+
+            lv.setAdapter(adapter);
 
             // change activity
             //Intent intent = new Intent(getApplicationContext(), NewsActivity.class);
