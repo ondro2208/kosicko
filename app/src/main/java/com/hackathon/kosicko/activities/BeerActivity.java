@@ -78,7 +78,7 @@ public class BeerActivity extends FragmentActivity implements OnMapReadyCallback
         SQLiteDatabase db = beerDbHandler.getReadableDatabase();
         //beerDbHandler.addAnotherBeer(new Beer("48.7205288","21.2599915",1));
        ArrayList<Beer> beers=beerDbHandler.getAllBeers(db);
-       ;
+       ;///lll
 //        try {
 //            boolean success = mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this.getContext(), R.raw.map_style));
 //            if (!success) {
