@@ -2,12 +2,23 @@ package com.hackathon.kosicko.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hackathon.kosicko.R;
 import com.hackathon.kosicko.classes.intrfc.WeatherundergroundService;
 import com.hackathon.kosicko.classes.models.Weather;
+import com.hackathon.kosicko.classes.models.shared.Forecastday_;
+import com.hackathon.kosicko.handlers.ForecastAdapter;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,14 +30,35 @@ public class WeatherActivity extends AppCompatActivity {
     private static final String TAG = "WeatherActivity";
     private String BASE_URL;
     private Retrofit retrofit;
-    private TextView wind;
+    public static final Map<String, String> descImgMap;
+
+    static {
+        descImgMap = new HashMap<>();
+        descImgMap.put("chancesleet", "sleet");
+        descImgMap.put("sleet", "sleet");
+        descImgMap.put("chancerain", "rain");
+        descImgMap.put("rain", "rain");
+        descImgMap.put("chancetstorms", "tstorms");
+        descImgMap.put("tstorms", "tstorms");
+        descImgMap.put("chancesnow", "snow");
+        descImgMap.put("snow", "snow");
+        descImgMap.put("chanceflurries", "snow");
+        descImgMap.put("flurries", "snow");
+        descImgMap.put("clear", "clear");
+        descImgMap.put("sunny", "clear");
+        descImgMap.put("mostlycloudy", "partlysunny");
+        descImgMap.put("mostlysunny", "partlysunny");
+        descImgMap.put("partlycloudy", "partlysunny");
+        descImgMap.put("partlysunny", "partlysunny");
+        descImgMap.put("fog", "fog");
+        descImgMap.put("hazy", "fog");
+        descImgMap.put("cloudy", "cloudy");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
-
-        this.wind = (TextView) findViewById(R.id.wind);
 
         this.BASE_URL = getString(R.string.provider_api_url);
 
@@ -37,7 +69,7 @@ public class WeatherActivity extends AppCompatActivity {
 
         WeatherundergroundService service = this.retrofit.create(WeatherundergroundService.class);
 
-        Call<Weather> allWeatherInfo = service.getWeatherInfo("EN", "Slovakia", "Kosice");
+        Call<Weather> allWeatherInfo = service.getWeatherInfo("SK", "Slovakia", "Kosice");
         allWeatherInfo.enqueue(new Callback<Weather>() {
             @Override
             public void onResponse(Call<Weather> call, Response<Weather> response) {
@@ -56,13 +88,41 @@ public class WeatherActivity extends AppCompatActivity {
                     Log.d("Response errorBody", String.valueOf(response.errorBody()));
                 }*/
 
-                Weather weatherInfo = response.body();
-
                 Log.i(TAG, "Download succeeded");
 
-                wind.setText(weatherInfo.currentObservation.windKph.toString());
+                Weather weatherInfo = response.body();
 
-                // TODO: now design the activity layout and create a listview adapter to display data for multiday forecast
+                ForecastAdapter fa = new ForecastAdapter(weatherInfo.forecast);
+                LinearLayoutManager layoutManager
+                        = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+                RecyclerView view = (RecyclerView) findViewById(R.id.multi_day_forecast);
+                view.setLayoutManager(layoutManager);
+                view.setAdapter(fa);
+
+                String currentIcon = descImgMap.get(weatherInfo.currentObservation.icon);
+                if (weatherInfo.currentObservation.icon.startsWith("nt_")){
+                    currentIcon = String.format("nt_%s", descImgMap.get(weatherInfo.currentObservation.icon));
+                }
+                RelativeLayout weatherBg = (RelativeLayout) findViewById(R.id.current_weather);
+                int resId =  getResources().getIdentifier(
+                        String.format("bg_%s", currentIcon),
+                        "drawable",
+                        getPackageName()
+                );
+                System.out.println(String.format("bg_%s", currentIcon));
+                weatherBg.setBackground(getResources().getDrawable(resId));
+                ImageView imgDesc = (ImageView) findViewById(R.id.img_desc);
+                resId =  getResources().getIdentifier(
+                        currentIcon,
+                        "drawable",
+                        getPackageName()
+                );
+                imgDesc.setImageDrawable(getResources().getDrawable(resId));
+                TextView temp = (TextView) findViewById(R.id.temp);
+                temp.setText(String.format("%s °C", weatherInfo.currentObservation.tempC));
+                TextView desc = (TextView) findViewById(R.id.desc);
+                desc.setText(weatherInfo.currentObservation.weather);
+                // TODO: now design the activity layout
             }
 
             @Override

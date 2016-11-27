@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:weightSum="5"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp">
+
+    <TextView android:id="@+id/day_of_week"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        tools:text="So" />
+
+    <TextView android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        tools:text="26/11" />
+
+    <ImageView android:id="@+id/weather_desc_icon"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:srcCompat="@drawable/weather"
+        android:layout_weight="1"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"/>
+
+    <TextView android:id="@+id/dt_temp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textColor="@color/red"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        tools:text="6" />
+
+    <TextView android:id="@+id/nt_temp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textColor="@color/belize_hole"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        tools:text="-2" />
+</LinearLayout>

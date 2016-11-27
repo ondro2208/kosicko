@@ -38,9 +38,8 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void onWeatherClicked(View view){
-        Toast.makeText(this, getResources().getString(R.string.not_available), Toast.LENGTH_SHORT).show();
-//        Intent i = new Intent(this, WeatherActivity.class);
-//        startActivity(i);
+        Intent i = new Intent(this, WeatherActivity.class);
+        startActivity(i);
     }
 
     public void onNewsClicked(View view){
