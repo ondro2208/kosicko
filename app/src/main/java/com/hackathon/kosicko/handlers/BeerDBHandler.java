@@ -6,6 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 /**
  * Created by Peťo on 27.11.2016.
  */
@@ -82,6 +87,25 @@ public class BeerDBHandler extends SQLiteOpenHelper {
 
         return cursor;
     }
+
+    ArrayList<Beer> getAllBeers(SQLiteDatabase db) {
+
+        String[] data = {KEY_LAT, KEY_LNG, KEY_PEOPLE};
+
+        Cursor cursor = db.query(TABLE_BEER, data, null, null, null, null, null);
+
+        ArrayList<Beer> beerArrayList = new ArrayList<>();
+
+        while(cursor.moveToNext()) {
+            Beer beer = new Beer(cursor.getString(cursor.getColumnIndex(KEY_LAT)),
+                                    cursor.getString(cursor.getColumnIndex(KEY_LNG)),
+                                        cursor.getString(cursor.getColumnIndex(KEY_PEOPLE)));
+            beerArrayList.add(beer);
+        }
+
+        return beerArrayList;
+    }
+
 
     @Override
     public SQLiteDatabase getReadableDatabase() {
