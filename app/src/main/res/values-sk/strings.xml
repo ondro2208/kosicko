@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">KoŠicko</string>
+    <string name="weather">Počasie</string>
+    <string name="news">"Čo je nové?"</string>
+    <string name="events">Eventy</string>
+    <string name="second_hand">Bazár</string>
+    <string name="beer">Poď na pivo</string>
+    <string name="parking">Kam zaparkovať?</string>
+    <string name="title_activity_beer">Mapa</string>
+    <string name="not_available">Táto služba nie je v súčasnosti dostupná</string>
+    <string name="title_activity_parking">Parkovanie</string>
+
+    <!-- Weather activity related strings -->
+
+    <string name="provider_desc">Informácie o počasí poskytuje:</string>
+</resources>
