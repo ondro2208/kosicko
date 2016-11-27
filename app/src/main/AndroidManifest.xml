@@ -5,7 +5,8 @@ package="com.hackathon.kosicko">
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-<uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
 
 <application android:allowBackup="true" android:icon="@mipmap/ic_launcher" android:label="@string/app_name"
     android:supportsRtl="true" android:theme="@style/Theme.AppCompat.NoActionBar">
@@ -21,10 +22,7 @@ package="com.hackathon.kosicko">
     <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyCV3mff9_Bja2faeESSg-WKAqq7zXV8LT4" />
 
     <activity android:name=".activities.BeerActivity" android:label="@string/beer"></activity>
-    <activity android:name=".clients.GooglePlacesClient"></activity>
-    <activity android:name=".activities.ParkingActivity" android:label="@string/title_activity_parking"/>
-    <activity android:name=".activities.WeatherActivity"></activity>
-    <activity android:name=".activities.NewsActivity"></activity>
+    <activity android:name="com.hackathon.kosicko.activities.ParkingActivity" android:label="@string/title_activity_parking"/>
 </application>
 
 </manifest>

@@ -3,12 +3,14 @@ package com.hackathon.kosicko.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.hackathon.kosicko.R;
 import com.hackathon.kosicko.clients.GooglePlacesClient;
+
 
 
 public class StartActivity extends AppCompatActivity {
@@ -29,6 +31,7 @@ public class StartActivity extends AppCompatActivity {
         beer_button = (RelativeLayout) findViewById(R.id.beer_button);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
 
     }
 
@@ -66,5 +69,12 @@ public class StartActivity extends AppCompatActivity {
         Intent i = new Intent(this, GooglePlacesClient.class);
         startActivity(i);
     }
+
+
+
+
+
+
+
 
 }
