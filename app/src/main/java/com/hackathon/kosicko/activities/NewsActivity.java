@@ -177,7 +177,6 @@ public class NewsActivity extends AppCompatActivity {
                 js.put("TITLE", arr.getJSONObject(i).getString("title"));
                 js.put("DATE", arr.getJSONObject(i).getString("pubDate"));
                 js.put("PICTURE", arr.getJSONObject(i).getJSONObject("enclosure").getString("link"));
-                Log.i("HHHHHHHHH", ""+ arr.getJSONObject(i).getJSONObject("enclosure").getString("link"));
                 this.finalObject[i] = js;
 
             }
