@@ -8,8 +8,10 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -197,7 +199,7 @@ public class NewsActivity extends AppCompatActivity {
                 }
 
                 js.put("PICTURE", arr.getJSONObject(i).getJSONObject("enclosure").getString("link"));
-
+                js.put("LINK", arr.getJSONObject(i).getString("link"));
 
                 this.finalObject[i] = js;
 
@@ -225,6 +227,16 @@ public class NewsActivity extends AppCompatActivity {
             ListView lv = (ListView) findViewById(R.id.news_list_view);
 
             lv.setAdapter(adapter);
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> Parent, View view, int position, long id) {
+                    try {
+                        openPage(finalObject[position].getString("LINK"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
 
             // change activity
             //Intent intent = new Intent(getApplicationContext(), NewsActivity.class);
