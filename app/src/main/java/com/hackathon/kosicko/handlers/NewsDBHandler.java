@@ -25,7 +25,6 @@ public class NewsDBHandler extends SQLiteOpenHelper {
 
     //Variables
     private static final String KEY_ID = "id";
-    private static final String KEY_SOURCE = "source";
     private static final String KEY_TITLE = "title";
     private static final String KEY_IMAGE = "image";
     private static final String KEY_URL = "url";
@@ -43,7 +42,6 @@ public class NewsDBHandler extends SQLiteOpenHelper {
                 " CREATE TABLE " + TABLE_News
                 + "("
                 + KEY_ID + " INTEGER PRIMARY KEY,"
-                + KEY_SOURCE + " TEXT,"
                 + KEY_TITLE + " TEXT, "
                 + KEY_IMAGE + " TEXT, "
                 + KEY_URL + " TEXT, "
@@ -69,7 +67,6 @@ public class NewsDBHandler extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
 
-        values.put(KEY_SOURCE, news.getSource());
         values.put(KEY_TITLE, news.getTitle());
         values.put(KEY_IMAGE, news.getImage());
         values.put(KEY_URL, news.getUrl());
@@ -83,7 +80,7 @@ public class NewsDBHandler extends SQLiteOpenHelper {
 
     Cursor getData(SQLiteDatabase db) {
 
-        String[] data = {KEY_SOURCE, KEY_TITLE, KEY_IMAGE, KEY_URL, KEY_DATE};
+        String[] data = {KEY_TITLE, KEY_IMAGE, KEY_URL, KEY_DATE};
 
         Cursor cursor = db.query(TABLE_News, data, null, null, null, null, null);
 
