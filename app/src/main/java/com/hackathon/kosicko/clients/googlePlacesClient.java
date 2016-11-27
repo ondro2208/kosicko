@@ -228,37 +228,10 @@ public class GooglePlacesClient extends AppCompatActivity  implements OnConnecti
             else if("parking".equals(toActivity)){
                 intent = new Intent(getApplicationContext(), ParkingActivity.class);
             }
-            jsonToClass(json);
+                intent.putExtra("json",json.toString());
             startActivity(intent);
         }
     }
 
-    public void jsonToClass(JSONObject jsonObject) {
 
-        JSONArray arr = null;
-        try {
-            arr = new JSONArray(jsonObject.getString("results"));
-
-        JSONObject[] finalObject = new JSONObject[arr.length()];
-
-        for(int i = 0; i < arr.length(); i++){
-            JSONObject js = new JSONObject();
-            js.put("lat", arr.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getString("lat"));
-            js.put("lng", arr.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getString("lng"));
-            js.put("name", arr.getJSONObject(i).getString("name"));
-            js.put("place_id", arr.getJSONObject(i).getString("place_id"));
-            finalObject[i]=js;
-
-        }
-
-            for(int k=0;k<finalObject.length-1;k++){
-                finalObject[k].get("name");
-                Log.d("name: ",finalObject[k].get("name").toString());
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
 }
