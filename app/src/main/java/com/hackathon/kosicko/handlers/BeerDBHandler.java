@@ -99,7 +99,7 @@ public class BeerDBHandler extends SQLiteOpenHelper {
         while(cursor.moveToNext()) {
             Beer beer = new Beer(cursor.getString(cursor.getColumnIndex(KEY_LAT)),
                                     cursor.getString(cursor.getColumnIndex(KEY_LNG)),
-                                        cursor.getString(cursor.getColumnIndex(KEY_PEOPLE)));
+                                        cursor.getInt(cursor.getColumnIndex(KEY_PEOPLE)));
             beerArrayList.add(beer);
         }
 

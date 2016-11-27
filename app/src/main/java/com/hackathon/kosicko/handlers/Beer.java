@@ -9,14 +9,14 @@ public class Beer {
     //Private variables
     private String lat;
     private String lng;
-    private String people;
+    private int people;
 
     //empty constructor
     public Beer(){
 
     }
 
-    public Beer(String lat, String lng, String people) {
+    public Beer(String lat, String lng, int people) {
         this.lat = lat;
         this.lng = lng;
         this.people = people;
@@ -38,11 +38,11 @@ public class Beer {
         this.lng = lng;
     }
 
-    public String getPeople() {
+    public int getPeople() {
         return people;
     }
 
-    public void setPeople(String people) {
+    public void setPeople(int people) {
         this.people = people;
     }
 }
