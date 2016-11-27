@@ -1,18 +1,24 @@
 package com.hackathon.kosicko.activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Marker;
 import com.hackathon.kosicko.R;
 import com.hackathon.kosicko.clients.PlacesHelper;
 
@@ -48,13 +54,18 @@ public class ParkingActivity extends FragmentActivity implements OnConnectionFai
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mMap.setMyLocationEnabled(true);
+        } else {
+            // Show rationale and request permission.
+        }
         mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-        mMap.setMinZoomPreference(10);
+        mMap.setMinZoomPreference(12);
+        mMap.clear();
 
-        // Add a marker in Sydney and move the camera
         LatLng kosice = new LatLng(48.721614, 21.257382);
-        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        PlacesHelper.addMarkersToMap(jsonObjects,mMap,toActivity,null);
+        PlacesHelper.addMarkersToMap(jsonObjects,mMap,toActivity);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(kosice));
     }
 
@@ -62,4 +73,13 @@ public class ParkingActivity extends FragmentActivity implements OnConnectionFai
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
+    @Override
+    public void onBackPressed(){
+        Intent back=new Intent(getApplicationContext(),StartActivity.class);
+        startActivity(back);
+        finish();
+    }
+
+
 }

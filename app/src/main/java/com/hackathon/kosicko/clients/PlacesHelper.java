@@ -159,7 +159,6 @@ public class PlacesHelper {
             if("parking".equals(toActivity)) {
                 startMarker = new MarkerOptions().position(position).title(name).icon(BitmapDescriptorFactory.fromResource(R.drawable.parking_map));
             }
-
             googleMap.addMarker(startMarker);
         }
     }
