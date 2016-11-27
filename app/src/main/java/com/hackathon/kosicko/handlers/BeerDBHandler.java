@@ -92,7 +92,7 @@ public class BeerDBHandler extends SQLiteOpenHelper {
 
         String[] data = {KEY_LAT, KEY_LNG, KEY_PEOPLE};
 
-        Cursor cursor = db.query(TABLE_BEER, data, null, null, null, null, null);
+        Cursor cursor = this.getReadableDatabase().query(TABLE_BEER, data, null, null, null, null, null);
 
         ArrayList<Beer> beerArrayList = new ArrayList<>();
 
