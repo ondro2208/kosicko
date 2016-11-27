@@ -16,7 +16,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -24,9 +23,11 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-import com.hackathon.kosicko.R;
 import com.hackathon.kosicko.activities.BeerActivity;
+import com.hackathon.kosicko.R;
+import com.hackathon.kosicko.classes.PlacesHelper;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -62,7 +63,7 @@ public class GooglePlacesClient extends AppCompatActivity  implements OnConnecti
     private static final String LOCATION_KE = "location=48.721614,21.257382";
 
     private static final String TAG_GET =  "PLACES";
-
+    private String toActivity = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +75,9 @@ public class GooglePlacesClient extends AppCompatActivity  implements OnConnecti
                 .addApi(Places.PLACE_DETECTION_API)
                 .enableAutoManage(this, this)
                 .build();
+
+        Intent intent = getIntent();
+        toActivity = intent.getStringExtra("toActivity");
 
         mResolvingError = savedInstanceState != null
                 && savedInstanceState.getBoolean(STATE_RESOLVING_ERROR, false);
@@ -87,32 +91,6 @@ public class GooglePlacesClient extends AppCompatActivity  implements OnConnecti
 
     public void performSearch() throws Exception {
         new RetrieveGETTask().execute();
-        /*try {
-            System.out.println("Perform Search ....");
-            System.out.println("-------------------");
-            HttpRequestFactory httpRequestFactory = createRequestFactory(transport);
-            HttpRequest request = httpRequestFactory.buildGetRequest(new GenericUrl(PLACES_SEARCH_URL));
-            request.url.put("key", API_KEY);
-            request.url.put("location", latitude + "," + longitude);
-            request.url.put("radius", 500);
-            request.url.put("sensor", "false");
-
-            if (PRINT_AS_STRING) {
-                System.out.println(request.execute().parseAsString());
-            } else {
-
-                PlacesList places = request.execute().parseAs(PlacesList.class);
-                System.out.println("STATUS = " + places.status);
-                for (Place place : places.results) {
-                    System.out.println(place);
-                }
-            }
-
-        } catch (HttpResponseException e) {
-            System.err.println(e.response.parseAsString());
-            throw e;
-        }*/
-
     }
 
 
@@ -218,11 +196,10 @@ public class GooglePlacesClient extends AppCompatActivity  implements OnConnecti
     }
 
     public class RetrieveGETTask extends AsyncTask<String, Void, JSONObject> {
-
+        private Context context;
 
         private ProgressDialog progress;
         private String errorMessage = "Connection error";
-
 
         @Override
         protected void onPreExecute() {
@@ -233,76 +210,23 @@ public class GooglePlacesClient extends AppCompatActivity  implements OnConnecti
         }
         @Override
         protected JSONObject doInBackground(String... cities) {
-//            try {
-//                StringBuilder fullBuilder = Helper.getMethod(GET_URL,null);
-//                fullBuilder = Helper.getMethod(GET_URL+"?page=2",fullBuilder);
-//                return new JSONObject(fullBuilder.toString());
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//            return null;
-            URL url = null;
             try {
-                StringBuilder getURL = new StringBuilder(PLACES_RADARSEARCH_URL);
-                getURL.append(LOCATION_KE);
-                getURL.append(RADIUS);
-                getURL.append(TYPE_RESTAURANT);
-                getURL.append(APP_KEY);
-
-                //location=-33.8670522,151.1957362&radius=500&type=restaurant&key=AIzaSyCV3mff9_Bja2faeESSg-WKAqq7zXV8LT4
-                Log.i(TAG_GET,getURL.toString());
-                url = new URL(getURL.toString());
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setConnectTimeout(15000 /* milliseconds */);
-                connection.setReadTimeout(10000 /* milliseconds */);
-                connection.connect();
-                Log.i(TAG_GET, String.format("Connecting to %s", url.toString()));
-                Log.i(TAG_GET, String.format("HTTP Status Code: %d", connection.getResponseCode()));
-                StringBuilder sb = new StringBuilder();//getDataStringBuilder(connection);
-                BufferedReader br = new BufferedReader(new InputStreamReader( connection.getInputStream(),"utf-8"));
-                String line = null;
-                while ((line = br.readLine()) != null) {
-                    sb.append(line + "\n");
-                }
-                br.close();
-                Log.i(TAG_GET, sb.toString());
-                if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                    Log.i(TAG_GET, String.format("HTTP Status Code: %d", connection.getResponseCode()));
+                StringBuilder sb = PlacesHelper.getMethod(toActivity);
+                if(sb == null){
                     return null;
                 }
-                connection.disconnect();
-
-                //if(fullBuilder==null){
-                   // return stringBuilder;
-               // }
-                //String newData = stringBuilder.toString();
-               // Log.i(TAG_GET, String.format("GET: %s", newData));
-                //newData = newData.substring(newData.indexOf("[")+1,newData.indexOf("]"));
-                //fullBuilder.insert(fullBuilder.indexOf("]"),","+newData);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+                Log.i(TAG_GET, sb.toString());
+                return new JSONObject(sb.toString());
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
             return null;
-
         }
         @Override
         protected void onPostExecute(JSONObject json) {
             super.onPostExecute(json);
-            this.progress.dismiss();
-//            if (json == null) {
-//                Toast.makeText(getApplicationContext(), this.errorMessage, Toast.LENGTH_SHORT).show();
-//                return;
-//            }
-            // change activity
-                Intent intent = new Intent(getApplicationContext(),BeerActivity.class);
-//            intent.putExtra("json", json.toString());
-//            intent.putExtra("durationF", durationF);
-//            intent.putExtra("distanceF", distanceF);
-                startActivity(intent);
-
-
+            Intent intent = new Intent(getApplicationContext(), BeerActivity.class);
+            startActivity(intent);
         }
     }
 }
