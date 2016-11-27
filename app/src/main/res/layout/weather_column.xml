@@ -13,6 +13,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:textAlignment="center"
+        android:textSize="30sp"
         tools:text="So" />
 
     <TextView android:id="@+id/date"
@@ -20,6 +21,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:textAlignment="center"
+        android:textSize="30sp"
         tools:text="26/11" />
 
     <ImageView android:id="@+id/weather_desc_icon"
@@ -36,7 +38,7 @@
         android:layout_weight="1"
         android:textColor="@color/red"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textSize="30sp"
         tools:text="6" />
 
     <TextView android:id="@+id/nt_temp"
@@ -45,6 +47,6 @@
         android:layout_weight="1"
         android:textColor="@color/belize_hole"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textSize="30sp"
         tools:text="-2" />
 </LinearLayout>
