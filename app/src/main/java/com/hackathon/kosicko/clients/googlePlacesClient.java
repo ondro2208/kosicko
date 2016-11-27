@@ -26,6 +26,8 @@ import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListe
 import com.google.gson.Gson;
 import com.hackathon.kosicko.activities.BeerActivity;
 import com.hackathon.kosicko.R;
+import com.hackathon.kosicko.activities.ParkingActivity;
+import com.hackathon.kosicko.activities.StartActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -219,8 +221,13 @@ public class GooglePlacesClient extends AppCompatActivity  implements OnConnecti
         @Override
         protected void onPostExecute(JSONObject json){
             super.onPostExecute(json);
-            Intent intent = new Intent(getApplicationContext(), BeerActivity.class);
-           // intent.putExtra("json",json);
+            Intent intent = new Intent(getApplicationContext(), StartActivity.class);
+            if("beer".equals(toActivity)) {
+                intent = new Intent(getApplicationContext(), BeerActivity.class);
+            }
+            else if("parking".equals(toActivity)){
+                intent = new Intent(getApplicationContext(), ParkingActivity.class);
+            }
             jsonToClass(json);
             startActivity(intent);
         }
