@@ -40,12 +40,16 @@
 
 
         </LinearLayout>
+
         <View android:layout_height="1dp"
             android:layout_width="match_parent"
             android:background="@color/sunflower" />
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/news_list_view" />
+
     </LinearLayout>
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 </RelativeLayout>

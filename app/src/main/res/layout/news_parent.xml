@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/news_title"
             android:textSize="20dp"
+            android:layout_marginLeft="7dp"
             android:layout_weight="1" />
 
         <TextView
