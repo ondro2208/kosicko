@@ -3,16 +3,17 @@ package com.hackathon.kosicko.activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
+import com.google.gson.JsonArray;
 import com.hackathon.kosicko.R;
 import com.hackathon.kosicko.handlers.NewsListAdapter;
 
@@ -26,8 +27,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import static com.hackathon.kosicko.R.styleable.View;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class NewsActivity extends AppCompatActivity {
@@ -176,12 +179,33 @@ public class NewsActivity extends AppCompatActivity {
             for(int i = 0; i < arr.length(); i++){
                 JSONObject js = new JSONObject();
                 js.put("TITLE", arr.getJSONObject(i).getString("title"));
-                js.put("DATE", arr.getJSONObject(i).getString("pubDate"));
+
+                // try catch to separate today news from yesterday's news and show that info
+                try {
+                    String s = arr.getJSONObject(i).getString("pubDate");
+                    DateFormat df = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+                    Date result = df.parse(s);
+
+                    int hours = result.getHours();
+
+                    if(result.getDay() == new Date().getDay() + 2)
+                        js.put("DATE", "Dnes o " + hours + "h");
+                    else
+                        js.put("DATE", "Včera o " + hours + "h");
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
                 js.put("PICTURE", arr.getJSONObject(i).getJSONObject("enclosure").getString("link"));
-                js.put("LINK", arr.getJSONObject(i).getString("link"));
+
+
                 this.finalObject[i] = js;
 
+
+
             }
+
+
 
         }
 
@@ -201,21 +225,6 @@ public class NewsActivity extends AppCompatActivity {
             ListView lv = (ListView) findViewById(R.id.news_list_view);
 
             lv.setAdapter(adapter);
-            lv.setOnItemClickListener(new OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    try {
-                        openPage(finalObject[position].getString("LINK"));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-
-                }
-            });
-
-
-        }
 
             // change activity
             //Intent intent = new Intent(getApplicationContext(), NewsActivity.class);
@@ -226,4 +235,4 @@ public class NewsActivity extends AppCompatActivity {
     }
 
 
-
+}
