@@ -55,7 +55,7 @@ public class StartActivity extends AppCompatActivity {
 
     public void onParkingClicked(View view){
         //Toast.makeText(this, getResources().getString(R.string.not_available), Toast.LENGTH_SHORT).show();
-        Intent i = new Intent(this, ParkingActivity.class);
+        Intent i = new Intent(this, GooglePlacesClient.class);
         i.putExtra("toActivity","parking");
         startActivity(i);
     }

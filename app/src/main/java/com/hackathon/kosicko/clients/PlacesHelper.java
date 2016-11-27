@@ -3,6 +3,12 @@ package com.hackathon.kosicko.clients;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.hackathon.kosicko.R;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -105,8 +111,8 @@ public class PlacesHelper {
             }
 
             for(int k=0;k<finalObject.length-1;k++){
-                finalObject[k].get("name");
-                Log.d("name: ",finalObject[k].get("name").toString());
+                //finalObject[k].get("name");
+                Log.d("name: ",finalObject[k].toString());//get("name").toString());
             }
 
             return finalObject;
@@ -114,5 +120,30 @@ public class PlacesHelper {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void addMarkersToMap(JSONObject[] jsonObjects, GoogleMap googleMap, String toActivity){
+        for(JSONObject object : jsonObjects){
+            double lat = 0;
+            double lon = 0;
+            String name = null;
+            try {
+                lat = object.getDouble("lat");
+                lon = object.getDouble("lng");
+                name = object.getString("name");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            LatLng position = new LatLng(lat,lon);
+            MarkerOptions startMarker = null;
+            if("beer".equals(toActivity)){
+                startMarker = new MarkerOptions().position(position).title(name).icon(BitmapDescriptorFactory.fromResource(R.drawable.beer));
+            }
+            if("parking".equals(toActivity)) {
+                startMarker = new MarkerOptions().position(position).title(name).icon(BitmapDescriptorFactory.fromResource(R.drawable.parking_map));
+            }
+            googleMap.addMarker(startMarker);
+        }
     }
 }

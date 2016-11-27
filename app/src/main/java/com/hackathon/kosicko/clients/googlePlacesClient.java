@@ -228,7 +228,8 @@ public class GooglePlacesClient extends AppCompatActivity  implements OnConnecti
             else if("parking".equals(toActivity)){
                 intent = new Intent(getApplicationContext(), ParkingActivity.class);
             }
-                intent.putExtra("json",json.toString());
+            intent.putExtra("json",json.toString());
+            intent.putExtra("toActivity",toActivity);
             startActivity(intent);
         }
     }
