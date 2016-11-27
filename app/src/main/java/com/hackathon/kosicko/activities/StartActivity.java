@@ -54,9 +54,10 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void onParkingClicked(View view){
-        Toast.makeText(this, getResources().getString(R.string.not_available), Toast.LENGTH_SHORT).show();
-//        Intent i = new Intent(this, ParkingActivity.class);
-//        startActivity(i);
+        //Toast.makeText(this, getResources().getString(R.string.not_available), Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(this, ParkingActivity.class);
+        i.putExtra("toActivity","parking");
+        startActivity(i);
     }
 
     public void onSecondHandClicked(View view){
@@ -71,22 +72,5 @@ public class StartActivity extends AppCompatActivity {
         i.putExtra("toActivity","beer");
         startActivity(i);
     }
-
-//    private void createRSSFeed(){
-//        RSSFeedParser parser = new RSSFeedParser(
-//                "http://rss.sme.sk/rss/rss.asp?sek=reg_ke");
-//        Feed feed = parser.readFeed();
-//        System.out.println(feed);
-//        for (FeedMessage message : feed.getMessages()) {
-//
-//            //your code here
-//
-//        }
-//    }
-
-
-
-
-
 
 }
