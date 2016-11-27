@@ -62,10 +62,9 @@ public class ParkingActivity extends FragmentActivity implements OnConnectionFai
         }
         mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         mMap.setMinZoomPreference(12);
-        mMap.clear();
 
         LatLng kosice = new LatLng(48.721614, 21.257382);
-        PlacesHelper.addMarkersToMap(jsonObjects,mMap,toActivity);
+        PlacesHelper.addMarkersToMap(jsonObjects,mMap,toActivity,null);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(kosice));
     }
 

@@ -1,17 +1,14 @@
 package com.hackathon.kosicko.clients;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.google.android.gms.common.internal.DowngradeableSafeParcel;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hackathon.kosicko.R;
 import com.hackathon.kosicko.handlers.Beer;
-import com.hackathon.kosicko.handlers.BeerDBHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
