@@ -3,6 +3,10 @@ package com.hackathon.kosicko.clients;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -80,5 +84,35 @@ public class PlacesHelper {
         br.close();
         Log.i(TAG_GET, sb.toString());
         return sb;
+    }
+
+    public static JSONObject[] jsonToClass(JSONObject jsonObject) {
+
+        JSONArray arr = null;
+        try {
+            arr = new JSONArray(jsonObject.getString("results"));
+
+            JSONObject[] finalObject = new JSONObject[arr.length()];
+
+            for(int i = 0; i < arr.length(); i++){
+                JSONObject js = new JSONObject();
+                js.put("lat", arr.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getString("lat"));
+                js.put("lng", arr.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getString("lng"));
+                js.put("name", arr.getJSONObject(i).getString("name"));
+                js.put("place_id", arr.getJSONObject(i).getString("place_id"));
+                finalObject[i]=js;
+
+            }
+
+            for(int k=0;k<finalObject.length-1;k++){
+                finalObject[k].get("name");
+                Log.d("name: ",finalObject[k].get("name").toString());
+            }
+
+            return finalObject;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
