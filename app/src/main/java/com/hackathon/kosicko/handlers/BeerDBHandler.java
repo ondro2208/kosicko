@@ -63,7 +63,7 @@ public class BeerDBHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    void addAnotherBeer(Beer beer) {
+    public void addAnotherBeer(Beer beer) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
