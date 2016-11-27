@@ -9,8 +9,6 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.hackathon.kosicko.R;
-import com.hackathon.kosicko.classes.RSSParser.Feed;
-import com.hackathon.kosicko.classes.RSSParser.FeedMessage;
 import com.hackathon.kosicko.clients.GooglePlacesClient;
 
 
