@@ -23,6 +23,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.google.gson.Gson;
 import com.hackathon.kosicko.activities.BeerActivity;
 import com.hackathon.kosicko.R;
 
@@ -48,7 +49,7 @@ public class GooglePlacesClient extends AppCompatActivity  implements OnConnecti
 
     private static final int REQUEST_LOCATION = 1100;
 
-    private static final String PLACES_RADARSEARCH_URL =  "https://maps.googleapis.com/maps/api/place/radarsearch/json?";
+    private static final String PLACES_RADARSEARCH_URL =  "https://maps.googleapis.com/maps/api/place/nearbysearch/json?";
     private static final String APP_KEY = "&key=AIzaSyAMqmKzz65ak2oP7EiztXIoL7brIYtE7lU";
     private static final String RADIUS = "&radius=500";
     private static final String TYPE_RESTAURANT = "&type=restaurant";
@@ -216,35 +217,41 @@ public class GooglePlacesClient extends AppCompatActivity  implements OnConnecti
             return null;
         }
         @Override
-        protected void onPostExecute(JSONObject json) {
+        protected void onPostExecute(JSONObject json){
             super.onPostExecute(json);
             Intent intent = new Intent(getApplicationContext(), BeerActivity.class);
            // intent.putExtra("json",json);
+            jsonToClass(json);
             startActivity(intent);
         }
     }
 
-//    public void jsonToClass(JSONObject jsonObject){
-//        String jsonString = "PlacePoint";
-//        JSONObject jsonResult = null;
-//        try {
-//            jsonResult = new JSONObject(jsonString);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        JSONArray data = null;
-//        try {
-//            data = jsonResult.getJSONArray("data");
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        if(data != null) {
-//            String[] names = new String[data.length()];
-//            String[] birthdays = new String[data.length()];
-//            for(int i = 0 ; i < data.length() ; i++) {
-//                birthdays[i] = data.getString("birthday");
-//                names[i] = data.getString("name");
-//            }
-//        }
-//    }
+    public void jsonToClass(JSONObject jsonObject) {
+
+        JSONArray arr = null;
+        try {
+            arr = new JSONArray(jsonObject.getString("results"));
+
+        JSONObject[] finalObject = new JSONObject[arr.length()];
+
+        for(int i = 0; i < arr.length(); i++){
+            JSONObject js = new JSONObject();
+            js.put("lat", arr.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getString("lat"));
+            js.put("lng", arr.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getString("lng"));
+            js.put("name", arr.getJSONObject(i).getString("name"));
+            js.put("place_id", arr.getJSONObject(i).getString("place_id"));
+            finalObject[i]=js;
+
+        }
+
+            for(int k=0;k<finalObject.length-1;k++){
+                finalObject[k].get("name");
+                Log.d("name: ",finalObject[k].get("name").toString());
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

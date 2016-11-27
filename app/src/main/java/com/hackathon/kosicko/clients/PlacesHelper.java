@@ -18,7 +18,7 @@ public class PlacesHelper {
     private static final String TAG_GET = "GET";
     private static final String TAG_POST= "POST";
 
-    private static final String PLACES_RADARSEARCH_URL =  "https://maps.googleapis.com/maps/api/place/radarsearch/json?";
+    private static final String PLACES_RADARSEARCH_URL =  "https://maps.googleapis.com/maps/api/place/nearbysearch/json?";
     private static final String APP_KEY = "&key=AIzaSyAMqmKzz65ak2oP7EiztXIoL7brIYtE7lU";
     private static final String RADIUS = "&radius=5000";
     private static final String TYPE_RESTAURANT = "&type=restaurant";
