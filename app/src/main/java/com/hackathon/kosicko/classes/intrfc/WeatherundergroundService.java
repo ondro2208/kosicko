@@ -15,20 +15,23 @@ import retrofit2.http.Path;
 public interface WeatherundergroundService {
 
     // gets all weather info (current conditions and multiple day forecast) for a given locality
-    @GET("45da9f1d0b1c1ba5/conditions/forecast/lang:{langcode}/q/{country}/{city}.json")
-    Call<Weather> getWeatherInfo(@Path("langcode") String langCode,
+    @GET("{appkey}/conditions/forecast/lang:{langcode}/q/{country}/{city}.json")
+    Call<Weather> getWeatherInfo(@Path("appkey") String appkey,
+                                 @Path("langcode") String langCode,
                                  @Path("country") String country,
                                  @Path("city") String city);
 
     // gets current weather conditions for a given locality
-    @GET("45da9f1d0b1c1ba5/conditions/lang:{langcode}/q/{country}/{city}.json")
-    Call<Conditions> getCurrentConditions(@Path("langcode") String langCode,
+    @GET("{appkey}/conditions/lang:{langcode}/q/{country}/{city}.json")
+    Call<Conditions> getCurrentConditions(@Path("appkey") String appkey,
+                                          @Path("langcode") String langCode,
                                           @Path("country") String country,
                                           @Path("city") String city);
 
     // gets multiple day forecast for a given locality
-    @GET("45da9f1d0b1c1ba5/forecast/lang:{langcode}/q/{country}/{city}.json")
-    Call<MultiDayForecast> getMultiDayForecast(@Path("langcode") String langCode,
+    @GET("{appkey}/forecast/lang:{langcode}/q/{country}/{city}.json")
+    Call<MultiDayForecast> getMultiDayForecast(@Path("appkey") String appkey,
+                                               @Path("langcode") String langCode,
                                                @Path("country") String country,
                                                @Path("city") String city);
 }

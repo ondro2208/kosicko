@@ -18,6 +18,7 @@ import com.hackathon.kosicko.classes.models.Weather;
 import com.hackathon.kosicko.handlers.ForecastAdapter;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -29,6 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class WeatherActivity extends AppCompatActivity {
     private static final String TAG = "WeatherActivity";
     private String BASE_URL;
+    private String APPKEY;
     private Retrofit retrofit;
     public static final Map<String, String> descImgMap;
 
@@ -61,15 +63,17 @@ public class WeatherActivity extends AppCompatActivity {
         setContentView(R.layout.activity_weather);
 
         this.BASE_URL = getString(R.string.provider_api_url);
-
-        retrofit = new Retrofit.Builder()
+        this.APPKEY = getString(R.string.api_key);
+        this.retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         WeatherundergroundService service = this.retrofit.create(WeatherundergroundService.class);
 
-        Call<Weather> allWeatherInfo = service.getWeatherInfo("SK", "Slovakia", "Kosice");
+        String langCode = Locale.getDefault().getLanguage().toUpperCase();
+
+        Call<Weather> allWeatherInfo = service.getWeatherInfo(this.APPKEY, langCode, "Slovakia", "Kosice");
         allWeatherInfo.enqueue(new Callback<Weather>() {
             @Override
             public void onResponse(Call<Weather> call, Response<Weather> response) {
@@ -109,7 +113,6 @@ public class WeatherActivity extends AppCompatActivity {
                         "drawable",
                         getPackageName()
                 );
-                System.out.println(String.format("bg_%s", currentIcon));
                 weatherBg.setBackground(getResources().getDrawable(resId));
                 ImageView imgDesc = (ImageView) findViewById(R.id.img_desc);
                 resId =  getResources().getIdentifier(
@@ -122,7 +125,6 @@ public class WeatherActivity extends AppCompatActivity {
                 temp.setText(String.format("%s °C", weatherInfo.currentObservation.tempC));
                 TextView desc = (TextView) findViewById(R.id.desc);
                 desc.setText(weatherInfo.currentObservation.weather);
-                // TODO: now design the activity layout
             }
 
             @Override
