@@ -14,7 +14,8 @@
         android:layout_weight="1"
         android:textAlignment="center"
         android:textSize="30sp"
-        tools:text="So" />
+        tools:text="So"
+        android:textColor="@color/sunflower"/>
 
     <TextView android:id="@+id/date"
         android:layout_width="match_parent"
@@ -22,7 +23,8 @@
         android:layout_weight="1"
         android:textAlignment="center"
         android:textSize="30sp"
-        tools:text="26/11" />
+        tools:text="26/11"
+        android:textColor="@color/sunflower"/>
 
     <ImageView android:id="@+id/weather_desc_icon"
         android:layout_width="match_parent"
@@ -45,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:textColor="@color/belize_hole"
+        android:textColor="@color/light_blue"
         android:textAlignment="center"
         android:textSize="30sp"
         tools:text="-2" />

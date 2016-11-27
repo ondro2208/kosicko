@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:weightSum="10"
     android:orientation="vertical"
+    android:background="@drawable/bg7"
     tools:context="com.hackathon.kosicko.activities.WeatherActivity">
 
     <RelativeLayout android:id="@+id/current_weather"
@@ -69,7 +70,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/provider_desc"
-            android:layout_above="@+id/provider_link"/>
+            android:layout_above="@+id/provider_link"
+            android:textColor="@color/sunflower"/>
 
         <ImageView android:id="@+id/provider_link"
             android:src="@drawable/provider_logo"
