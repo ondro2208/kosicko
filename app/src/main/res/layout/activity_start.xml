@@ -28,7 +28,6 @@
             android:layout_height="wrap_content"
             android:src="@drawable/orb"
             android:layout_marginLeft="20sp"
-            android:onClick="onOrbClicked"
             android:id="@+id/orb"
             />
         <TextView
