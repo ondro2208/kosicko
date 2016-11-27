@@ -1,23 +1,23 @@
 package com.hackathon.kosicko.activities;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hackathon.kosicko.R;
 import com.hackathon.kosicko.classes.intrfc.WeatherundergroundService;
 import com.hackathon.kosicko.classes.models.Weather;
-import com.hackathon.kosicko.classes.models.shared.Forecastday_;
 import com.hackathon.kosicko.handlers.ForecastAdapter;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -131,5 +131,13 @@ public class WeatherActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
+    }
+
+    public void onProviderClicked(View view) {
+        Intent intent = new Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(getString(R.string.weather_provider))
+        );
+        startActivity(intent);
     }
 }

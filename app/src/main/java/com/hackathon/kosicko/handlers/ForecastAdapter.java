@@ -13,10 +13,6 @@ import com.hackathon.kosicko.classes.models.shared.Forecast;
 import com.hackathon.kosicko.classes.models.shared.Forecastday;
 import com.hackathon.kosicko.classes.models.shared.Forecastday_;
 
-import java.util.List;
-
-import static java.security.AccessController.getContext;
-
 /**
  * Created by developer on 27.11.2016.
  */
