@@ -76,7 +76,11 @@ public class BeerActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         BeerDBHandler beerDbHandler=new BeerDBHandler(getApplicationContext());
         SQLiteDatabase db = beerDbHandler.getReadableDatabase();
-        //beerDbHandler.addAnotherBeer(new Beer("48.7205288","21.2599915",1));
+//        beerDbHandler.addAnotherBeer(new Beer("48.7205288","21.2599915",1));
+//        beerDbHandler.addAnotherBeer(new Beer("48.7406256","21.2433354",2));
+//        beerDbHandler.addAnotherBeer(new Beer("48.7182062","21.259008",4));
+//        beerDbHandler.addAnotherBeer(new Beer("48.7241018","21.2591853",6));
+
        ArrayList<Beer> beers=beerDbHandler.getAllBeers(db);
        ;///lll
 //        try {

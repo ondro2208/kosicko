@@ -11,4 +11,13 @@
     android:layout_height="match_parent"
     tools:context="com.hackathon.kosicko.activities.BeerActivity" />
 
+    <Button
+        android:id="@+id/buttonPlus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:text="+"
+        android:textSize="15sp"
+        />
 </RelativeLayout>

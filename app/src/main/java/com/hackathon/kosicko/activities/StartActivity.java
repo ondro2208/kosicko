@@ -3,14 +3,12 @@ package com.hackathon.kosicko.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.hackathon.kosicko.R;
 import com.hackathon.kosicko.clients.GooglePlacesClient;
-
 
 
 public class StartActivity extends AppCompatActivity {
@@ -20,6 +18,7 @@ public class StartActivity extends AppCompatActivity {
     private RelativeLayout parking_button;
     private RelativeLayout second_hand_button;
     private RelativeLayout beer_button;
+    int counter = 0;
 //kk
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,14 +26,10 @@ public class StartActivity extends AppCompatActivity {
         news_button = (RelativeLayout) findViewById(R.id.news_button);
         events_button = (RelativeLayout) findViewById(R.id.events_button);
         parking_button = (RelativeLayout) findViewById(R.id.parking_button);
-        second_hand_button = (RelativeLayout) findViewById(R.id.secondhand_button);
-        beer_button = (RelativeLayout) findViewById(R.id.beer_button);
-        super.onCreate(savedInstanceState);
+       super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-
     }
-
     public void onWeatherClicked(View view){
         Intent i = new Intent(this, WeatherActivity.class);
         startActivity(i);
@@ -46,9 +41,9 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void onEventsClicked(View view){
-        Toast.makeText(this, getResources().getString(R.string.not_available), Toast.LENGTH_SHORT).show();
-//        Intent i = new Intent(this, EventsActivity.class);
-//        startActivity(i);
+        //Toast.makeText(this, getResources().getString(R.string.not_available), Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(this, EventsActivity.class);
+        startActivity(i);
     }
 
     public void onParkingClicked(View view){
@@ -70,5 +65,4 @@ public class StartActivity extends AppCompatActivity {
         i.putExtra("toActivity","beer");
         startActivity(i);
     }
-
 }

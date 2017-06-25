@@ -52,7 +52,7 @@ public class NewsListAdapter extends ArrayAdapter {
                 String newsimage = json.getString("PICTURE");
                 Picasso.with(context).load(newsimage)
                         .centerCrop()
-                        .resize(800, 800)
+                        .resize(100, 100)
                         .into(image);
             } catch (JSONException e) {
                 e.printStackTrace();

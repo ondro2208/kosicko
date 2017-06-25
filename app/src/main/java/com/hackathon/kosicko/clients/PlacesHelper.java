@@ -142,7 +142,7 @@ public class PlacesHelper {
             MarkerOptions startMarker = null;
             if("beer".equals(toActivity)){
                 startMarker = new MarkerOptions();
-                startMarker.position(position).title(name).icon(BitmapDescriptorFactory.fromResource(R.drawable.establishment));
+                startMarker.position(position).title(name).icon(BitmapDescriptorFactory.fromResource(R.drawable.beer));
                 if(beerEvents!=null){
                     for(Beer beer: beerEvents){
                         if(Double.valueOf(beer.getLat())==lat && Double.valueOf(beer.getLng())==lon){

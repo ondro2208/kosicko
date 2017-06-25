@@ -9,6 +9,10 @@
     <string name="title_activity_beer">Map</string>
     <string name="not_available">This service is currently not available</string>
     <string name="title_activity_parking">Parking</string>
+    <string name="events_title">Events near you</string>
+    <string name="filter">Filter</string>
+    <string name="click_orb">Stop clicking me!</string>
+    <string name="at">" at "</string>
 
     <!-- Weather activity related strings -->
 

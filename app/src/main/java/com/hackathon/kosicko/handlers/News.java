@@ -7,6 +7,7 @@ package com.hackathon.kosicko.handlers;
 public class News {
 
     //Private variables
+    private String source;
     private String title;
     private String image;
     private String url;
@@ -18,10 +19,19 @@ public class News {
     }
 
     public News(String source, String title, String image, String url, String date) {
+        this.source = source;
         this.title = title;
         this.image = image;
         this.url = url;
         this.date = date;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public String getTitle() {

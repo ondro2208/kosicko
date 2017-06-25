@@ -3,39 +3,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="121dp">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:srcCompat="@drawable/common_google_signin_btn_icon_light_focused"
         android:id="@+id/news_image"
-        android:layout_weight="1"
+        android:layout_weight="3"
         />
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.3">
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
 
         <TextView
             android:text="Title title title title title title title title title title title titile."
-            android:layout_width="match_parent"
-            android:layout_height="91dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/news_title"
             android:textSize="20dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-             />
+            android:layout_marginLeft="7dp"
+            android:layout_weight="1" />
 
         <TextView
             android:text="date"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/news_date"
-            android:textAlignment="gravity"
-            android:gravity="bottom|right"
-            android:layout_gravity="end"/>
+            android:layout_weight="0.5"
+            android:gravity="bottom|right"/>
     </LinearLayout>
 </LinearLayout>

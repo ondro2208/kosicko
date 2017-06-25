@@ -3,19 +3,15 @@ package com.hackathon.kosicko.activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
-import android.nfc.Tag;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.gson.JsonArray;
 import com.hackathon.kosicko.R;
 import com.hackathon.kosicko.handlers.NewsListAdapter;
 
@@ -98,11 +94,11 @@ public class NewsActivity extends AppCompatActivity {
         data[1] = js;
 
 
-            NewsListAdapter adapter = new NewsListAdapter(getApplicationContext(), data);
+        NewsListAdapter adapter = new NewsListAdapter(getApplicationContext(), data);
 
-            ListView lv = (ListView) findViewById(R.id.news_list_view);
+        ListView lv = (ListView) findViewById(R.id.news_list_view);
 
-            lv.setAdapter(adapter);
+        lv.setAdapter(adapter);
 
     }
 
